@@ -3600,6 +3600,35 @@ bool WrappedVulkan::Serialise_vkCreateDevice(SerialiserType &ser, VkPhysicalDevi
       }
       END_PHYS_EXT_CHECK();
 
+      BEGIN_PHYS_EXT_CHECK(VkPhysicalDeviceCooperativeMatrixFeaturesKHR,
+                           VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COOPERATIVE_MATRIX_FEATURES_KHR);
+      {
+        CHECK_PHYS_EXT_FEATURE(cooperativeMatrix);
+        CHECK_PHYS_EXT_FEATURE(cooperativeMatrixRobustBufferAccess);
+      }
+      END_PHYS_EXT_CHECK();
+
+      BEGIN_PHYS_EXT_CHECK(VkPhysicalDeviceCooperativeMatrixFeaturesNV,
+                           VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COOPERATIVE_MATRIX_FEATURES_NV);
+      {
+        CHECK_PHYS_EXT_FEATURE(cooperativeMatrix);
+        CHECK_PHYS_EXT_FEATURE(cooperativeMatrixRobustBufferAccess);
+      }
+      END_PHYS_EXT_CHECK();
+
+      BEGIN_PHYS_EXT_CHECK(VkPhysicalDeviceCooperativeMatrix2FeaturesNV,
+                           VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COOPERATIVE_MATRIX_2_FEATURES_NV);
+      {
+        CHECK_PHYS_EXT_FEATURE(cooperativeMatrixWorkgroupScope);
+        CHECK_PHYS_EXT_FEATURE(cooperativeMatrixFlexibleDimensions);
+        CHECK_PHYS_EXT_FEATURE(cooperativeMatrixReductions);
+        CHECK_PHYS_EXT_FEATURE(cooperativeMatrixConversions);
+        CHECK_PHYS_EXT_FEATURE(cooperativeMatrixPerElementOperations);
+        CHECK_PHYS_EXT_FEATURE(cooperativeMatrixTensorAddressing);
+        CHECK_PHYS_EXT_FEATURE(cooperativeMatrixBlockLoads);
+      }
+      END_PHYS_EXT_CHECK();
+
       BEGIN_PHYS_EXT_CHECK(VkPhysicalDeviceUnifiedImageLayoutsFeaturesKHR,
                            VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_UNIFIED_IMAGE_LAYOUTS_FEATURES_KHR);
       {

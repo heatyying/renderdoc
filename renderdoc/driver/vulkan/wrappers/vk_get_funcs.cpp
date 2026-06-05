@@ -1283,6 +1283,33 @@ VkResult WrappedVulkan::vkGetPhysicalDeviceFragmentShadingRatesKHR(
                                                  pFragmentShadingRates);
 }
 
+VkResult WrappedVulkan::vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR(
+    VkPhysicalDevice physicalDevice, uint32_t *pPropertyCount,
+    VkCooperativeMatrixPropertiesKHR *pProperties)
+{
+  return ObjDisp(physicalDevice)
+      ->GetPhysicalDeviceCooperativeMatrixPropertiesKHR(Unwrap(physicalDevice), pPropertyCount,
+                                                        pProperties);
+}
+
+VkResult WrappedVulkan::vkGetPhysicalDeviceCooperativeMatrixPropertiesNV(
+    VkPhysicalDevice physicalDevice, uint32_t *pPropertyCount,
+    VkCooperativeMatrixPropertiesNV *pProperties)
+{
+  return ObjDisp(physicalDevice)
+      ->GetPhysicalDeviceCooperativeMatrixPropertiesNV(Unwrap(physicalDevice), pPropertyCount,
+                                                       pProperties);
+}
+
+VkResult WrappedVulkan::vkGetPhysicalDeviceCooperativeMatrixFlexibleDimensionsPropertiesNV(
+    VkPhysicalDevice physicalDevice, uint32_t *pPropertyCount,
+    VkCooperativeMatrixFlexibleDimensionsPropertiesNV *pProperties)
+{
+  return ObjDisp(physicalDevice)
+      ->GetPhysicalDeviceCooperativeMatrixFlexibleDimensionsPropertiesNV(
+          Unwrap(physicalDevice), pPropertyCount, pProperties);
+}
+
 uint32_t WrappedVulkan::vkGetDeferredOperationMaxConcurrencyKHR(VkDevice device,
                                                                 VkDeferredOperationKHR operation)
 {

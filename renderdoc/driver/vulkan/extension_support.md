@@ -145,6 +145,7 @@ Maintainers can update this file by updating vk.xml in this folder and running `
 * `VK_KHR_buffer_device_address`
 * `VK_KHR_calibrated_timestamps`
 * `VK_KHR_compute_shader_derivatives`
+* `VK_KHR_cooperative_matrix`
 * `VK_KHR_copy_commands2`
 * `VK_KHR_create_renderpass2`
 * `VK_KHR_dedicated_allocation`
@@ -257,6 +258,8 @@ Maintainers can update this file by updating vk.xml in this folder and running `
 * `VK_KHR_zero_initialize_workgroup_memory`
 * `VK_MVK_macos_surface`
 * `VK_NV_compute_shader_derivatives`
+* `VK_NV_cooperative_matrix`
+* `VK_NV_cooperative_matrix2`
 * `VK_NV_dedicated_allocation`
 * `VK_NV_external_memory_capabilities`
 * `VK_NV_external_memory_win32`
@@ -281,7 +284,6 @@ KHR extensions will definitely be implemented at some point, though KHR extensio
 
 ## KHR Extensions
 
-* `VK_KHR_cooperative_matrix`
 * `VK_KHR_copy_memory_indirect`
 * `VK_KHR_internally_synchronized_queues`
 * `VK_KHR_maintenance10`
@@ -399,8 +401,6 @@ The portability subset is only relevant on mac, which is not a supported platfor
 * `VK_NV_cluster_acceleration_structure`
 * `VK_NV_command_buffer_inheritance`
 * `VK_NV_compute_occupancy_priority`
-* `VK_NV_cooperative_matrix`
-* `VK_NV_cooperative_matrix2`
 * `VK_NV_cooperative_vector`
 * `VK_NV_copy_memory_indirect`
 * `VK_NV_corner_sampled_image`

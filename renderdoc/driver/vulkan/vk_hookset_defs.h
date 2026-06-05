@@ -528,6 +528,9 @@
   DeclExt(KHR_dynamic_rendering);                      \
   DeclExt(KHR_dynamic_rendering_local_read);           \
   DeclExt(KHR_fragment_shading_rate);                  \
+  DeclExt(KHR_cooperative_matrix);                     \
+  DeclExt(NV_cooperative_matrix);                      \
+  DeclExt(NV_cooperative_matrix2);                     \
   DeclExt(EXT_attachment_feedback_loop_layout);        \
   DeclExt(EXT_pageable_device_local_memory);           \
   DeclExt(EXT_swapchain_maintenance1);                 \
@@ -594,6 +597,9 @@
   CheckExt(KHR_wayland_surface, VKXX);                 \
   CheckExt(KHR_performance_query, VKXX);               \
   CheckExt(KHR_fragment_shading_rate, VKXX);           \
+  CheckExt(KHR_cooperative_matrix, VKXX);              \
+  CheckExt(NV_cooperative_matrix, VKXX);               \
+  CheckExt(NV_cooperative_matrix2, VKXX);              \
   CheckExt(EXT_acquire_drm_display, VKXX);             \
   CheckExt(KHR_calibrated_timestamps, VKXX);
 
@@ -675,6 +681,9 @@
   CheckExt(KHR_dynamic_rendering, VK13);                      \
   CheckExt(KHR_dynamic_rendering_local_read, VK14);           \
   CheckExt(KHR_fragment_shading_rate, VKXX);                  \
+  CheckExt(KHR_cooperative_matrix, VKXX);                     \
+  CheckExt(NV_cooperative_matrix, VKXX);                      \
+  CheckExt(NV_cooperative_matrix2, VKXX);                     \
   CheckExt(EXT_attachment_feedback_loop_layout, VKXX);        \
   CheckExt(EXT_pageable_device_local_memory, VKXX);           \
   CheckExt(EXT_swapchain_maintenance1, VKXX);                 \
@@ -754,6 +763,10 @@
   HookInitExtension(KHR_performance_query, GetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR);   \
   HookInitPromotedExtension(EXT_tooling_info, GetPhysicalDeviceToolProperties, EXT);                 \
   HookInitExtension(KHR_fragment_shading_rate, GetPhysicalDeviceFragmentShadingRatesKHR);            \
+  HookInitExtension(KHR_cooperative_matrix, GetPhysicalDeviceCooperativeMatrixPropertiesKHR);        \
+  HookInitExtension(NV_cooperative_matrix, GetPhysicalDeviceCooperativeMatrixPropertiesNV);          \
+  HookInitExtension(NV_cooperative_matrix2,                                                          \
+                    GetPhysicalDeviceCooperativeMatrixFlexibleDimensionsPropertiesNV);              \
   HookInitExtension(EXT_acquire_drm_display, AcquireDrmDisplayEXT);                                  \
   HookInitExtension(EXT_acquire_drm_display, GetDrmDisplayEXT);                                      \
   HookInitExtension(KHR_calibrated_timestamps, GetPhysicalDeviceCalibrateableTimeDomainsKHR);        \
@@ -822,6 +835,10 @@
   HookInitExtension(KHR_performance_query, GetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR);   \
   HookInitPromotedExtension(EXT_tooling_info, GetPhysicalDeviceToolProperties, EXT);                 \
   HookInitExtension(KHR_fragment_shading_rate, GetPhysicalDeviceFragmentShadingRatesKHR);            \
+  HookInitExtension(KHR_cooperative_matrix, GetPhysicalDeviceCooperativeMatrixPropertiesKHR);        \
+  HookInitExtension(NV_cooperative_matrix, GetPhysicalDeviceCooperativeMatrixPropertiesNV);          \
+  HookInitExtension(NV_cooperative_matrix2,                                                          \
+                    GetPhysicalDeviceCooperativeMatrixFlexibleDimensionsPropertiesNV);              \
   HookInitExtension(EXT_acquire_drm_display, AcquireDrmDisplayEXT);                                  \
   HookInitExtension(EXT_acquire_drm_display, GetDrmDisplayEXT);                                      \
   HookInitExtension(KHR_calibrated_timestamps, GetPhysicalDeviceCalibrateableTimeDomainsKHR);        \
@@ -1845,6 +1862,15 @@
   HookDefine3(VkResult, vkGetPhysicalDeviceFragmentShadingRatesKHR, VkPhysicalDevice,                \
               physicalDevice, uint32_t *, pFragmentShadingRateCount,                                 \
               VkPhysicalDeviceFragmentShadingRateKHR *, pFragmentShadingRates);                      \
+  HookDefine3(VkResult, vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR, VkPhysicalDevice,        \
+              physicalDevice, uint32_t *, pPropertyCount, VkCooperativeMatrixPropertiesKHR *,        \
+              pProperties);                                                                          \
+  HookDefine3(VkResult, vkGetPhysicalDeviceCooperativeMatrixPropertiesNV, VkPhysicalDevice,         \
+              physicalDevice, uint32_t *, pPropertyCount, VkCooperativeMatrixPropertiesNV *,         \
+              pProperties);                                                                          \
+  HookDefine3(VkResult, vkGetPhysicalDeviceCooperativeMatrixFlexibleDimensionsPropertiesNV,         \
+              VkPhysicalDevice, physicalDevice, uint32_t *, pPropertyCount,                          \
+              VkCooperativeMatrixFlexibleDimensionsPropertiesNV *, pProperties);                     \
   HookDefine3(void, vkSetDeviceMemoryPriorityEXT, VkDevice, device, VkDeviceMemory, memory, float,   \
               priority);                                                                             \
   HookDefine3(VkResult, vkAcquireDrmDisplayEXT, VkPhysicalDevice, physicalDevice, int32_t, drmFd,    \

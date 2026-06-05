@@ -1285,6 +1285,28 @@ SERIALISE_VK_HANDLES();
   PNEXT_STRUCT(VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_KHR,                            \
                VkPhysicalDeviceFragmentShadingRateKHR)                                                 \
                                                                                                        \
+  /* VK_KHR_cooperative_matrix */                                                                      \
+  PNEXT_STRUCT(VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COOPERATIVE_MATRIX_FEATURES_KHR,                      \
+               VkPhysicalDeviceCooperativeMatrixFeaturesKHR)                                           \
+  PNEXT_STRUCT(VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COOPERATIVE_MATRIX_PROPERTIES_KHR,                    \
+               VkPhysicalDeviceCooperativeMatrixPropertiesKHR)                                         \
+  PNEXT_STRUCT(VK_STRUCTURE_TYPE_COOPERATIVE_MATRIX_PROPERTIES_KHR, VkCooperativeMatrixPropertiesKHR)  \
+                                                                                                       \
+  /* VK_NV_cooperative_matrix */                                                                       \
+  PNEXT_STRUCT(VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COOPERATIVE_MATRIX_FEATURES_NV,                       \
+               VkPhysicalDeviceCooperativeMatrixFeaturesNV)                                            \
+  PNEXT_STRUCT(VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COOPERATIVE_MATRIX_PROPERTIES_NV,                     \
+               VkPhysicalDeviceCooperativeMatrixPropertiesNV)                                          \
+  PNEXT_STRUCT(VK_STRUCTURE_TYPE_COOPERATIVE_MATRIX_PROPERTIES_NV, VkCooperativeMatrixPropertiesNV)    \
+                                                                                                       \
+  /* VK_NV_cooperative_matrix2 */                                                                      \
+  PNEXT_STRUCT(VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COOPERATIVE_MATRIX_2_FEATURES_NV,                     \
+               VkPhysicalDeviceCooperativeMatrix2FeaturesNV)                                           \
+  PNEXT_STRUCT(VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COOPERATIVE_MATRIX_2_PROPERTIES_NV,                   \
+               VkPhysicalDeviceCooperativeMatrix2PropertiesNV)                                         \
+  PNEXT_STRUCT(VK_STRUCTURE_TYPE_COOPERATIVE_MATRIX_FLEXIBLE_DIMENSIONS_PROPERTIES_NV,                 \
+               VkCooperativeMatrixFlexibleDimensionsPropertiesNV)                                      \
+                                                                                                       \
   /* VK_KHR_maintenance2 */                                                                            \
   PNEXT_STRUCT(VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_POINT_CLIPPING_PROPERTIES,                            \
                VkPhysicalDevicePointClippingProperties)                                                \
@@ -2054,11 +2076,6 @@ SERIALISE_VK_HANDLES();
   /* VK_INTEL_shader_integer_functions2 */                                                             \
   PNEXT_UNSUPPORTED(VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_INTEGER_FUNCTIONS_2_FEATURES_INTEL)       \
                                                                                                        \
-  /* VK_KHR_cooperative_matrix */                                                                      \
-  PNEXT_UNSUPPORTED(VK_STRUCTURE_TYPE_COOPERATIVE_MATRIX_PROPERTIES_KHR)                               \
-  PNEXT_UNSUPPORTED(VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COOPERATIVE_MATRIX_PROPERTIES_KHR)               \
-  PNEXT_UNSUPPORTED(VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COOPERATIVE_MATRIX_FEATURES_KHR)                 \
-                                                                                                       \
   /* VK_KHR_copy_memory_indirect */                                                                    \
   PNEXT_UNSUPPORTED(VK_STRUCTURE_TYPE_COPY_MEMORY_INDIRECT_INFO_KHR)                                   \
   PNEXT_UNSUPPORTED(VK_STRUCTURE_TYPE_COPY_MEMORY_TO_IMAGE_INDIRECT_INFO_KHR)                          \
@@ -2271,16 +2288,6 @@ SERIALISE_VK_HANDLES();
   /* VK_NV_compute_occupancy_priority */                                                               \
   PNEXT_UNSUPPORTED(VK_STRUCTURE_TYPE_COMPUTE_OCCUPANCY_PRIORITY_PARAMETERS_NV)                        \
   PNEXT_UNSUPPORTED(VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COMPUTE_OCCUPANCY_PRIORITY_FEATURES_NV)          \
-                                                                                                       \
-  /* VK_NV_cooperative_matrix */                                                                       \
-  PNEXT_UNSUPPORTED(VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COOPERATIVE_MATRIX_FEATURES_NV)                  \
-  PNEXT_UNSUPPORTED(VK_STRUCTURE_TYPE_COOPERATIVE_MATRIX_PROPERTIES_NV)                                \
-  PNEXT_UNSUPPORTED(VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COOPERATIVE_MATRIX_PROPERTIES_NV)                \
-                                                                                                       \
-  /* VK_NV_cooperative_matrix2 */                                                                      \
-  PNEXT_UNSUPPORTED(VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COOPERATIVE_MATRIX_2_FEATURES_NV)                \
-  PNEXT_UNSUPPORTED(VK_STRUCTURE_TYPE_COOPERATIVE_MATRIX_FLEXIBLE_DIMENSIONS_PROPERTIES_NV)            \
-  PNEXT_UNSUPPORTED(VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COOPERATIVE_MATRIX_2_PROPERTIES_NV)              \
                                                                                                        \
   /* VK_NV_cooperative_vector */                                                                       \
   PNEXT_UNSUPPORTED(VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COOPERATIVE_VECTOR_FEATURES_NV)                  \
@@ -6640,6 +6647,182 @@ void DoSerialise(SerialiserType &ser, VkPhysicalDeviceFragmentShadingRateKHR &el
 
 template <>
 void Deserialise(const VkPhysicalDeviceFragmentShadingRateKHR &el)
+{
+  DeserialiseNext(el.pNext);
+}
+
+template <typename SerialiserType>
+void DoSerialise(SerialiserType &ser, VkPhysicalDeviceCooperativeMatrixFeaturesKHR &el)
+{
+  RDCASSERT(ser.IsReading() ||
+            el.sType == VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COOPERATIVE_MATRIX_FEATURES_KHR);
+  SerialiseNext(ser, el.sType, el.pNext);
+
+  SERIALISE_MEMBER(cooperativeMatrix);
+  SERIALISE_MEMBER(cooperativeMatrixRobustBufferAccess);
+}
+
+template <>
+void Deserialise(const VkPhysicalDeviceCooperativeMatrixFeaturesKHR &el)
+{
+  DeserialiseNext(el.pNext);
+}
+
+template <typename SerialiserType>
+void DoSerialise(SerialiserType &ser, VkPhysicalDeviceCooperativeMatrixPropertiesKHR &el)
+{
+  RDCASSERT(ser.IsReading() ||
+            el.sType == VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COOPERATIVE_MATRIX_PROPERTIES_KHR);
+  SerialiseNext(ser, el.sType, el.pNext);
+
+  SERIALISE_MEMBER_VKFLAGS(VkShaderStageFlags, cooperativeMatrixSupportedStages);
+}
+
+template <>
+void Deserialise(const VkPhysicalDeviceCooperativeMatrixPropertiesKHR &el)
+{
+  DeserialiseNext(el.pNext);
+}
+
+template <typename SerialiserType>
+void DoSerialise(SerialiserType &ser, VkCooperativeMatrixPropertiesKHR &el)
+{
+  RDCASSERT(ser.IsReading() || el.sType == VK_STRUCTURE_TYPE_COOPERATIVE_MATRIX_PROPERTIES_KHR);
+  SerialiseNext(ser, el.sType, el.pNext);
+
+  SERIALISE_MEMBER(MSize);
+  SERIALISE_MEMBER(NSize);
+  SERIALISE_MEMBER(KSize);
+  SERIALISE_MEMBER(AType);
+  SERIALISE_MEMBER(BType);
+  SERIALISE_MEMBER(CType);
+  SERIALISE_MEMBER(ResultType);
+  SERIALISE_MEMBER(saturatingAccumulation);
+  SERIALISE_MEMBER(scope);
+}
+
+template <>
+void Deserialise(const VkCooperativeMatrixPropertiesKHR &el)
+{
+  DeserialiseNext(el.pNext);
+}
+
+template <typename SerialiserType>
+void DoSerialise(SerialiserType &ser, VkPhysicalDeviceCooperativeMatrixFeaturesNV &el)
+{
+  RDCASSERT(ser.IsReading() ||
+            el.sType == VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COOPERATIVE_MATRIX_FEATURES_NV);
+  SerialiseNext(ser, el.sType, el.pNext);
+
+  SERIALISE_MEMBER(cooperativeMatrix);
+  SERIALISE_MEMBER(cooperativeMatrixRobustBufferAccess);
+}
+
+template <>
+void Deserialise(const VkPhysicalDeviceCooperativeMatrixFeaturesNV &el)
+{
+  DeserialiseNext(el.pNext);
+}
+
+template <typename SerialiserType>
+void DoSerialise(SerialiserType &ser, VkPhysicalDeviceCooperativeMatrixPropertiesNV &el)
+{
+  RDCASSERT(ser.IsReading() ||
+            el.sType == VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COOPERATIVE_MATRIX_PROPERTIES_NV);
+  SerialiseNext(ser, el.sType, el.pNext);
+
+  SERIALISE_MEMBER_VKFLAGS(VkShaderStageFlags, cooperativeMatrixSupportedStages);
+}
+
+template <>
+void Deserialise(const VkPhysicalDeviceCooperativeMatrixPropertiesNV &el)
+{
+  DeserialiseNext(el.pNext);
+}
+
+template <typename SerialiserType>
+void DoSerialise(SerialiserType &ser, VkCooperativeMatrixPropertiesNV &el)
+{
+  RDCASSERT(ser.IsReading() || el.sType == VK_STRUCTURE_TYPE_COOPERATIVE_MATRIX_PROPERTIES_NV);
+  SerialiseNext(ser, el.sType, el.pNext);
+
+  SERIALISE_MEMBER(MSize);
+  SERIALISE_MEMBER(NSize);
+  SERIALISE_MEMBER(KSize);
+  SERIALISE_MEMBER(AType);
+  SERIALISE_MEMBER(BType);
+  SERIALISE_MEMBER(CType);
+  SERIALISE_MEMBER(DType);
+  SERIALISE_MEMBER(scope);
+}
+
+template <>
+void Deserialise(const VkCooperativeMatrixPropertiesNV &el)
+{
+  DeserialiseNext(el.pNext);
+}
+
+template <typename SerialiserType>
+void DoSerialise(SerialiserType &ser, VkPhysicalDeviceCooperativeMatrix2FeaturesNV &el)
+{
+  RDCASSERT(ser.IsReading() ||
+            el.sType == VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COOPERATIVE_MATRIX_2_FEATURES_NV);
+  SerialiseNext(ser, el.sType, el.pNext);
+
+  SERIALISE_MEMBER(cooperativeMatrixWorkgroupScope);
+  SERIALISE_MEMBER(cooperativeMatrixFlexibleDimensions);
+  SERIALISE_MEMBER(cooperativeMatrixReductions);
+  SERIALISE_MEMBER(cooperativeMatrixConversions);
+  SERIALISE_MEMBER(cooperativeMatrixPerElementOperations);
+  SERIALISE_MEMBER(cooperativeMatrixTensorAddressing);
+  SERIALISE_MEMBER(cooperativeMatrixBlockLoads);
+}
+
+template <>
+void Deserialise(const VkPhysicalDeviceCooperativeMatrix2FeaturesNV &el)
+{
+  DeserialiseNext(el.pNext);
+}
+
+template <typename SerialiserType>
+void DoSerialise(SerialiserType &ser, VkPhysicalDeviceCooperativeMatrix2PropertiesNV &el)
+{
+  RDCASSERT(ser.IsReading() ||
+            el.sType == VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COOPERATIVE_MATRIX_2_PROPERTIES_NV);
+  SerialiseNext(ser, el.sType, el.pNext);
+
+  SERIALISE_MEMBER(cooperativeMatrixWorkgroupScopeMaxWorkgroupSize);
+  SERIALISE_MEMBER(cooperativeMatrixFlexibleDimensionsMaxDimension);
+  SERIALISE_MEMBER(cooperativeMatrixWorkgroupScopeReservedSharedMemory);
+}
+
+template <>
+void Deserialise(const VkPhysicalDeviceCooperativeMatrix2PropertiesNV &el)
+{
+  DeserialiseNext(el.pNext);
+}
+
+template <typename SerialiserType>
+void DoSerialise(SerialiserType &ser, VkCooperativeMatrixFlexibleDimensionsPropertiesNV &el)
+{
+  RDCASSERT(ser.IsReading() ||
+            el.sType == VK_STRUCTURE_TYPE_COOPERATIVE_MATRIX_FLEXIBLE_DIMENSIONS_PROPERTIES_NV);
+  SerialiseNext(ser, el.sType, el.pNext);
+
+  SERIALISE_MEMBER(MGranularity);
+  SERIALISE_MEMBER(NGranularity);
+  SERIALISE_MEMBER(KGranularity);
+  SERIALISE_MEMBER(AType);
+  SERIALISE_MEMBER(BType);
+  SERIALISE_MEMBER(CType);
+  SERIALISE_MEMBER(ResultType);
+  SERIALISE_MEMBER(saturatingAccumulation);
+  SERIALISE_MEMBER(scope);
+  SERIALISE_MEMBER(workgroupInvocations);
+}
+
+template <>
+void Deserialise(const VkCooperativeMatrixFlexibleDimensionsPropertiesNV &el)
 {
   DeserialiseNext(el.pNext);
 }
@@ -15142,6 +15325,15 @@ INSTANTIATE_SERIALISE_TYPE(VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT);
 INSTANTIATE_SERIALISE_TYPE(VkPhysicalDeviceFragmentShadingRateFeaturesKHR);
 INSTANTIATE_SERIALISE_TYPE(VkPhysicalDeviceFragmentShadingRateKHR);
 INSTANTIATE_SERIALISE_TYPE(VkPhysicalDeviceFragmentShadingRatePropertiesKHR);
+INSTANTIATE_SERIALISE_TYPE(VkPhysicalDeviceCooperativeMatrixFeaturesKHR);
+INSTANTIATE_SERIALISE_TYPE(VkPhysicalDeviceCooperativeMatrixPropertiesKHR);
+INSTANTIATE_SERIALISE_TYPE(VkCooperativeMatrixPropertiesKHR);
+INSTANTIATE_SERIALISE_TYPE(VkPhysicalDeviceCooperativeMatrixFeaturesNV);
+INSTANTIATE_SERIALISE_TYPE(VkPhysicalDeviceCooperativeMatrixPropertiesNV);
+INSTANTIATE_SERIALISE_TYPE(VkCooperativeMatrixPropertiesNV);
+INSTANTIATE_SERIALISE_TYPE(VkPhysicalDeviceCooperativeMatrix2FeaturesNV);
+INSTANTIATE_SERIALISE_TYPE(VkPhysicalDeviceCooperativeMatrix2PropertiesNV);
+INSTANTIATE_SERIALISE_TYPE(VkCooperativeMatrixFlexibleDimensionsPropertiesNV);
 INSTANTIATE_SERIALISE_TYPE(VkPhysicalDeviceGlobalPriorityQueryFeatures);
 INSTANTIATE_SERIALISE_TYPE(VkPhysicalDeviceGraphicsPipelineLibraryFeaturesEXT);
 INSTANTIATE_SERIALISE_TYPE(VkPhysicalDeviceGraphicsPipelineLibraryPropertiesEXT);

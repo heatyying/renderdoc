@@ -3056,6 +3056,21 @@ public:
       VkPhysicalDevice physicalDevice, uint32_t *pFragmentShadingRateCount,
       VkPhysicalDeviceFragmentShadingRateKHR *pFragmentShadingRates);
 
+  // VK_KHR_cooperative_matrix
+  VkResult vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR(
+      VkPhysicalDevice physicalDevice, uint32_t *pPropertyCount,
+      VkCooperativeMatrixPropertiesKHR *pProperties);
+
+  // VK_NV_cooperative_matrix
+  VkResult vkGetPhysicalDeviceCooperativeMatrixPropertiesNV(
+      VkPhysicalDevice physicalDevice, uint32_t *pPropertyCount,
+      VkCooperativeMatrixPropertiesNV *pProperties);
+
+  // VK_NV_cooperative_matrix2
+  VkResult vkGetPhysicalDeviceCooperativeMatrixFlexibleDimensionsPropertiesNV(
+      VkPhysicalDevice physicalDevice, uint32_t *pPropertyCount,
+      VkCooperativeMatrixFlexibleDimensionsPropertiesNV *pProperties);
+
   // VK_EXT_pageable_device_local_memory
 
   IMPLEMENT_FUNCTION_SERIALISED(void, vkSetDeviceMemoryPriorityEXT, VkDevice device,
